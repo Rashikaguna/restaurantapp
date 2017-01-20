@@ -25,15 +25,15 @@ SELECT food_stocks.foodid INTO f_id FROM food JOIN food_stocks ON food_stocks.fo
    
    SELECT mealid INTO foodparam FROM food_stocks WHERE foodid=f_id;
     IF (foodparam IN(SELECT id FROM foodtype WHERE  from_time<=CURTIME() AND to_time>=CURTIME())) THEN
-     IF (f_id IN(SELECT FOOD_ID FROM `food_transaction` WHERE DATE(date_of_order)=CURDATE()))
+     IF (f_id IN(SELECT food_id FROM `food_transaction` WHERE DATE(date_of_order)=CURDATE()))
  THEN
-	SELECT SUM(quantity) INTO COUNTS FROM `food_transaction` WHERE FOOD_ID=f_id AND order_status='ORDERED';
-	SELECT quantity INTO AMOUNT_REQ FROM `food_stocks` WHERE Mealid=foodparam AND FOODid=F_ID;
-	SET REM = AMOUNT_REQ - COUNTS;
+	SELECT SUM(quantity) INTO counts FROM `food_transaction` WHERE food_id=f_id AND order_status='ORDERED';
+	SELECT quantity INTO amount_req FROM `food_stocks` WHERE mealid=foodparam AND foodid=f_id;
+	SET rem = amount_req - counts;
  
  ELSE
-	SELECT quantity INTO AMOUNT_REQ FROM food_stocks WHERE Mealid=foodparam AND FOODid=F_ID;
-	SET REM=AMOUNT_REQ;
+	SELECT quantity INTO amount_req FROM food_stocks WHERE mealid=foodparam AND foodid=f_id;
+	SET rem=amount_req;
  END IF;
  IF (qty>rem) THEN
    SELECT 'ordered quantity is greater than remaining quantity';
