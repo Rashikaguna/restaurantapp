@@ -39,12 +39,12 @@ insert  into `foodtype`(`id`,`meal`,`quantity`,`from_time`,`to_time`) values
    sno INT PRIMARY KEY,
    mealid INT,
    foodid INT,
-   remaining INT,
+   quantity INT,
       CONSTRAINT meal_id_fk FOREIGN KEY(mealid) REFERENCES foodtype(id),
     CONSTRAINT food_id_fk FOREIGN KEY(foodid) REFERENCES food(id)
     )
 
-SELECT * FROM food_stock
+SELECT * FROM food_stocks
 INSERT INTO food_stocks(sno,mealid,foodid) VALUES(1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),
 (6,1,6),(7,1,7),
 (8,2,8),(9,2,9),
@@ -71,7 +71,10 @@ CREATE TABLE `food_transaction` (
 `date_of_order` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
  `bill_status` varchar(20) DEFAULT 'yet to pay', 
  PRIMARY KEY (`order_no`),  KEY `fk_food_id` (`food_id`), 
- CONSTRAINT `fk_food_id` FOREIGN KEY (`food_id`) REFERENCES `food` (`id`))
+ CONSTRAINT `fk_food_id` FOREIGN KEY (`food_id`) REFERENCES `food` (`id`),
+ CONSTRAINT `fk_seatno` FOREIGN KEY (`seat_no`) REFERENCES `seats` (`sno`)
+)
+
 
 
 
