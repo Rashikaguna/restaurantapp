@@ -56,9 +56,13 @@ INSERT INTO food_stocks(sno,mealid,foodid) VALUES(1,1,1),(2,1,2),(3,1,3),(4,1,4)
 (16,4,16)
 
 /* table for seats verification*/
- CREATE TABLE seats(
- sno INT PRIMARY KEY,
- id INT)
+CREATE TABLE `seats` (
+  `sno` int(11) NOT NULL,
+  `id` int(11) DEFAULT NULL,
+  `seat_status` varchar(20) DEFAULT 'available',
+  `availability` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`sno`)
+)
  INSERT INTO seats VALUES(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10)
 
 /*table for order transaction*/
